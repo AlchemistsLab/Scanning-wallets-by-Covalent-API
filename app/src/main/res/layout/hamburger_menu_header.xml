@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:orientation="vertical"
+	android:padding="@dimen/header_view_padding_big">
+
+	<ImageView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center_horizontal"
+		android:scaleType="centerCrop"
+		android:src="@mipmap/ic_launcher" />
+
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center_horizontal"
+		android:paddingTop="@dimen/header_view_padding_big"
+		android:text="https://www.covalenthq.com/"
+		android:textColor="@color/blue"
+		android:textSize="@dimen/text_size" />
+
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center_horizontal"
+		android:fontFamily="sans-serif-medium"
+		android:paddingTop="@dimen/header_view_padding_big"
+		android:text="@string/app_name"
+		android:textColor="@color/gray900"
+		android:textSize="@dimen/super_large_text_size"
+		android:textStyle="bold" />
+
+	<TextView
+		android:id="@+id/hamburger_menu_header_app_version"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center_horizontal"
+		android:paddingTop="@dimen/header_view_padding_big"
+		android:text="@string/version"
+		android:textColor="@color/gray900"
+		android:textSize="@dimen/large_text_size" />
+
+	<View
+		android:layout_width="match_parent"
+		android:layout_height="0.5dp"
+		android:background="@drawable/bg_divider" />
+
+	<LinearLayout
+		android:id="@+id/hamburger_menu_wallets"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="vertical">
+
+		<TextView
+			style="@style/SPWidget.Setting.Text"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="20dp"
+			android:layout_marginTop="12dp"
+			android:layout_marginBottom="12dp"
+			android:fontFamily="sans-serif-medium"
+			android:text="@string/wallets"
+			android:textColor="@color/icons"
+			android:textSize="16sp" />
+
+		<View
+			android:layout_width="match_parent"
+			android:layout_height="0.5dp"
+			android:background="@drawable/bg_divider" />
+	</LinearLayout>
+
+	<LinearLayout
+		android:id="@+id/hamburger_menu_create_a_new_wallet"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="vertical">
+
+		<TextView
+			style="@style/SPWidget.Setting.Text"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="20dp"
+			android:layout_marginTop="12dp"
+			android:layout_marginBottom="12dp"
+			android:fontFamily="sans-serif-medium"
+			android:text="@string/create_a_new_wallet"
+			android:textColor="@color/icons"
+			android:textSize="16sp" />
+
+		<View
+			android:layout_width="match_parent"
+			android:layout_height="0.5dp"
+			android:background="@drawable/bg_divider" />
+	</LinearLayout>
+</LinearLayout>

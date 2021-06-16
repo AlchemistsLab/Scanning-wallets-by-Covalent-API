@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:paddingLeft="@dimen/row_book_padding_left"
+	android:paddingTop="@dimen/row_book_padding_top"
+	android:paddingRight="@dimen/row_book_padding_right"
+	android:paddingBottom="@dimen/row_book_padding_bottom">
+
+	<RelativeLayout
+		android:id="@+id/row_wallet_delete"
+		android:layout_width="40dp"
+		android:layout_height="50dp"
+		android:layout_alignParentRight="true"
+		android:layout_centerVertical="true"
+		android:layout_marginLeft="10dp">
+
+		<ImageView
+			android:layout_width="20dp"
+			android:layout_height="20dp"
+			android:layout_centerInParent="true"
+			android:src="@mipmap/ic_delete" />
+	</RelativeLayout>
+
+	<LinearLayout
+		android:id="@+id/row_wallet_content"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_alignParentLeft="true"
+		android:layout_toLeftOf="@id/row_wallet_delete"
+		android:orientation="vertical">
+
+		<TextView
+			android:id="@+id/row_wallet_name"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="5dp"
+			android:singleLine="true"
+			android:textColor="@color/secondary"
+			android:textSize="@dimen/text_size"
+			android:textStyle="bold" />
+
+		<TextView
+			android:id="@+id/row_wallet_address"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="3dp"
+			android:singleLine="true"
+			android:textColor="@color/gray700"
+			android:textSize="@dimen/small_text_size" />
+
+		<TextView
+			android:id="@+id/row_wallet_network"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="3dp"
+			android:textColor="@color/gray700"
+			android:textSize="@dimen/small_text_size" />
+	</LinearLayout>
+
+	<View
+		android:layout_width="match_parent"
+		android:layout_height="0.5dp"
+		android:layout_below="@id/row_wallet_content"
+		android:background="@drawable/bg_divider" />
+</RelativeLayout>

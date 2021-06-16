@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.google.android.material.navigation.NavigationView xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="wrap_content"
+	android:layout_height="match_parent"
+	android:layout_gravity="start">
+
+	<RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+
+		<ListView
+			android:id="@+id/hamburger_menu_left_drawer"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:layout_gravity="left"
+			android:background="@color/primary"
+			android:choiceMode="singleChoice"
+			android:divider="@color/black_30_percent"
+			android:dividerHeight="0dp" />
+	</RelativeLayout>
+</com.google.android.material.navigation.NavigationView>

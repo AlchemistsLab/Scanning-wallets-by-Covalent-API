@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:id="@+id/hamburger_drawer_layout"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:orientation="vertical">
+
+		<include layout="@layout/toolbar" />
+
+		<RelativeLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+
+			<androidx.coordinatorlayout.widget.CoordinatorLayout
+				android:id="@+id/fragment_wallets_layout_content"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent">
+
+				<androidx.recyclerview.widget.RecyclerView
+					android:id="@+id/fragment_wallets_layout_content_books_list"
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:layout_gravity="center"
+					android:divider="@null"
+					android:listSelector="@android:color/transparent"
+					android:overScrollMode="never"
+					android:scrollbars="none"
+					tools:layout_editor_absoluteY="-26dp" />
+
+				<com.google.android.material.floatingactionbutton.FloatingActionButton
+					android:id="@+id/fragment_wallets_layout_content_create_wallet"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_gravity="right|bottom"
+					android:layout_margin="10dp"
+					android:src="@mipmap/ic_add_white"
+					app:backgroundTint="@color/secondary" />
+			</androidx.coordinatorlayout.widget.CoordinatorLayout>
+		</RelativeLayout>
+	</LinearLayout>
+
+	<include layout="@layout/hamburger_menu" />
+</androidx.drawerlayout.widget.DrawerLayout>

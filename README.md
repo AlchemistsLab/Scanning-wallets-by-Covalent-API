@@ -1,1 +1,2 @@
-# Scanning-wallets-by-Covalent-API
+# ScanningWalletByCQT
+Creator: CrazyMoney Alchemist

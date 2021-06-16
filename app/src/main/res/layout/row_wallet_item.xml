@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:background="@color/white"
+	android:paddingLeft="20dp"
+	android:paddingTop="10dp"
+	android:paddingRight="20dp">
+
+	<RelativeLayout
+		android:id="@+id/row_wallet_item_content"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="10dp"
+		android:layout_marginBottom="5dp">
+
+		<com.facebook.drawee.view.SimpleDraweeView
+			android:id="@+id/row_wallet_item_logo"
+			android:layout_width="40dp"
+			android:layout_height="40dp"
+			android:layout_alignParentLeft="true"
+			android:layout_centerVertical="true" />
+
+		<TextView
+			android:id="@+id/row_wallet_item_name"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_centerVertical="true"
+			android:layout_marginLeft="20dp"
+			android:layout_toRightOf="@id/row_wallet_item_logo"
+			android:text="USDC"
+			android:textStyle="bold" />
+
+		<TextView
+			android:id="@+id/row_wallet_item_balance"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_alignParentRight="true"
+			android:layout_centerVertical="true"
+			android:text="1000"
+			android:textColor="@color/gray700"
+			android:textStyle="bold" />
+	</RelativeLayout>
+
+	<TextView
+		android:id="@+id/row_wallet_item_usd_value"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@id/row_wallet_item_content"
+		android:layout_alignParentRight="true"
+		android:text="1000 USD"
+		android:textColor="@color/gray700"
+		android:textStyle="bold" />
+
+	<View
+		android:layout_width="match_parent"
+		android:layout_height="0.5dp"
+		android:layout_below="@id/row_wallet_item_usd_value"
+		android:background="@drawable/bg_divider" />
+</RelativeLayout>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:id="@+id/toolbar"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:background="@color/actionbar_background"
+	android:elevation="4dp"
+	android:minHeight="?attr/actionBarSize"
+	app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+	app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+	<RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginRight="15dp">
+
+		<ImageView
+			android:id="@+id/hamburger_icon"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_centerVertical="true"
+			android:background="@mipmap/ic_menu_black_24dp"
+			android:clickable="true" />
+
+		<TextView
+			android:id="@+id/toolbar_title"
+			style="@style/AppBarHeaderText"
+			android:text="@string/wallets" />
+	</RelativeLayout>
+</androidx.appcompat.widget.Toolbar>

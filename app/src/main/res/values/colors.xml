@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<color name="purple_200">#FFBB86FC</color>
+	<color name="purple_500">#FF6200EE</color>
+	<color name="purple_700">#FF3700B3</color>
+	<color name="teal_200">#FF03DAC5</color>
+	<color name="teal_700">#FF018786</color>
+	<color name="black">#FF000000</color>
+	<color name="white">#FFFFFFFF</color>
+
+	<!--Material Design Theme Colors-->
+	<color name="primary">#eeeeee</color>
+	<color name="primary_dark">#bcbcbc</color>
+	<color name="secondary">#1976d2</color>
+	<color name="secondary_dark">#004ba0</color>
+	<color name="secondary_light">#63a4ff</color>
+	<color name="primary_text">#212121</color>
+	<color name="secondary_text">#757575</color>
+	<color name="icons">#000000</color>
+
+	<!-- transparent -->
+	<color name="black_70_percent">#B3000000</color>
+	<color name="black_50_percent">#80000000</color>
+	<color name="black_30_percent">#4D000000</color>
+	<color name="black_12_percent">#1F000000</color>
+	<color name="gray_90_percent">#E6e0e0e0</color>
+	<color name="transparent">@android:color/transparent</color>
+
+	<!--Grayscale-->
+	<color name="gray100">#f5f5f5</color>
+	<color name="gray200">#eeeeee</color>
+	<color name="gray300">#e0e0e0</color>
+	<color name="gray500">#9e9e9e</color>
+	<color name="gray700">#616161</color>
+	<color name="gray900">#212121</color>
+	<color name="gray">#D8D8D8</color>
+	<color name="gray_page_editor_tabs_text">#828282</color>
+
+	<!--Reds-->
+	<color name="red300">#e57373</color>
+	<color name="red700">#d32f2f</color>
+	<color name="red900">#b71c1c</color>
+
+	<!--Bluegrays-->
+	<color name="blue">#4A90E2</color>
+	<color name="blue_text">#67c0ec</color>
+	<color name="bluegray50">#eceff1</color>
+	<color name="bluegray100">#cfd8dc</color>
+	<color name="bluegray500">#607d8b</color>
+
+	<!--Yellows-->
+	<color name="yellow100">#fff9c4</color>
+	<color name="yellow500">#ffeb3b</color>
+
+	<!--Facebook Colors-->
+	<color name="facebook_sign_in_pressed">#ff385490</color>
+	<color name="facebook_sign_in_normal">#ff5474a8</color>
+
+	<color name="my_book_created">@color/gray500</color>
+	<color name="email_sign_up_pressed">@color/bluegray500</color>
+	<color name="checkout_field_border">@color/gray500</color>
+
+
+	<color name="stitch_option_fill">@color/gray500</color>
+
+	<!--Action Bar-->
+	<color name="actionbar_background">@color/white</color>
+
+	<color name="book_order_total_line_background">@color/yellow100</color>
+	<color name="small_preview_yellow_border">@color/yellow500</color>
+
+	<!-- button -->
+	<color name="button_gray_my_books_normal">@color/gray100</color>
+
+	<!-- my albums -->
+	<color name="my_book_button_border">@color/gray300</color>
+	<color name="my_books_background">@color/bluegray50</color>
+</resources>

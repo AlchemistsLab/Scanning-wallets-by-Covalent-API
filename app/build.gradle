@@ -1,0 +1,56 @@
+plugins {
+	id 'com.android.application'
+}
+
+android {
+	compileSdkVersion 30
+
+	defaultConfig {
+		applicationId "com.crazymoney.scanningwallet"
+		minSdkVersion 20
+		targetSdkVersion 30
+		versionCode 1
+		versionName "1.0"
+
+		testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+		multiDexEnabled true
+	}
+
+	buildTypes {
+		release {
+			minifyEnabled false
+			proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+		}
+	}
+	compileOptions {
+		sourceCompatibility JavaVersion.VERSION_1_8
+		targetCompatibility JavaVersion.VERSION_1_8
+	}
+	buildFeatures {
+		viewBinding true
+	}
+	lintOptions {
+		checkReleaseBuilds false
+		// Or, if you prefer, you can continue to check for errors in release builds,
+		// but continue the build even when errors are found:
+		abortOnError false
+	}
+}
+
+dependencies {
+
+	implementation "androidx.multidex:multidex:$rootProject.ext.multidexVersion"
+	implementation "androidx.recyclerview:recyclerview:$rootProject.ext.recyclerviewVersion"
+	implementation "androidx.fragment:fragment-ktx:$rootProject.ext.fragmentVersion"
+	implementation "com.google.android.material:material:$rootProject.ext.materialVersion"
+	implementation "androidx.appcompat:appcompat:$rootProject.ext.androidXLibraryVersion"
+	implementation "androidx.lifecycle:lifecycle-extensions:$rootProject.ext.androidXLifecycleVersion"
+	annotationProcessor "androidx.lifecycle:lifecycle-compiler:$rootProject.ext.androidXLifecycleVersion"
+
+	implementation "com.facebook.fresco:fresco:$rootProject.ext.frescoVersion"
+	implementation "com.android.volley:volley:$rootProject.ext.volleyVersion"
+	implementation "com.jakewharton:butterknife:$rootProject.ext.butterknifeVersion"
+	annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.ext.butterknifeVersion"
+	implementation "com.google.gdata:core:$rootProject.ext.gdataCoreVersion"
+	implementation "com.j256.ormlite:ormlite-android:$rootProject.ext.ormliteVersion"
+}

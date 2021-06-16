@@ -1,0 +1,81 @@
+package com.crazymoney.scanningwallet.database.table;
+
+import java.io.Serializable;
+
+public class WalletItem implements Serializable, Comparable<WalletItem> {
+	private static final String TAG = WalletItem.class.getSimpleName();
+
+	private String name;
+	private long balance;
+	private long contractDecimals;
+	private double quote;
+	private String logo;
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public long getBalance() {
+		return balance;
+	}
+
+	public void setBalance(long balance) {
+		this.balance = balance;
+	}
+
+	public long getContractDecimals() {
+		return contractDecimals;
+	}
+
+	public void setContractDecimals(long contractDecimals) {
+		this.contractDecimals = contractDecimals;
+	}
+
+	public double getQuote() {
+		return quote;
+	}
+
+	public void setQuote(double quote) {
+		this.quote = quote;
+	}
+
+	public String getLogo() {
+		return logo;
+	}
+
+	public void setLogo(String logo) {
+		this.logo = logo;
+	}
+
+	public String formatBalance() {
+		double realBalance = balance;
+		for (int i = 0; i < this.contractDecimals; i++) {
+			realBalance = realBalance / 10;
+		}
+		return String.format("%,.4f", realBalance);
+	}
+
+	public String formatUsdValue() {
+		return String.format("%,.2f", this.quote);
+	}
+
+	@Override
+	public String toString() {
+		return "WalletItem{" +
+				"name='" + name + '\'' +
+				", balance=" + balance +
+				", contractDecimals=" + contractDecimals +
+				", quote='" + quote + '\'' +
+				", logo='" + logo + '\'' +
+				'}';
+	}
+
+	@Override
+	public int compareTo(WalletItem o) {
+		return 0;
+	}
+}

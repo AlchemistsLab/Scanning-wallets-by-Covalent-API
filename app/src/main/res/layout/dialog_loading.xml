@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/dialog_loading_width"
+    android:layout_height="@dimen/dialog_loading_height"
+    android:background="@drawable/bg_semi_transparent_dialog"
+    style="@style/SPWidget.Dialog">
+
+    <include
+        layout="@layout/loading_layout"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>
