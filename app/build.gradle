@@ -9,8 +9,8 @@ android {
 		applicationId "com.crazymoney.scanningwallet"
 		minSdkVersion 20
 		targetSdkVersion 30
-		versionCode 1
-		versionName "1.0"
+		versionCode 2
+		versionName "1.1"
 
 		testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 		multiDexEnabled true
@@ -44,6 +44,7 @@ dependencies {
 	implementation "androidx.fragment:fragment-ktx:$rootProject.ext.fragmentVersion"
 	implementation "com.google.android.material:material:$rootProject.ext.materialVersion"
 	implementation "androidx.appcompat:appcompat:$rootProject.ext.androidXLibraryVersion"
+	implementation "androidx.cardview:cardview:$rootProject.ext.cardviewVersion"
 	implementation "androidx.lifecycle:lifecycle-extensions:$rootProject.ext.androidXLifecycleVersion"
 	annotationProcessor "androidx.lifecycle:lifecycle-compiler:$rootProject.ext.androidXLifecycleVersion"
 
