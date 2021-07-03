@@ -47,6 +47,7 @@ dependencies {
 	implementation "androidx.cardview:cardview:$rootProject.ext.cardviewVersion"
 	implementation "androidx.lifecycle:lifecycle-extensions:$rootProject.ext.androidXLifecycleVersion"
 	annotationProcessor "androidx.lifecycle:lifecycle-compiler:$rootProject.ext.androidXLifecycleVersion"
+	implementation "com.github.PhilJay:MPAndroidChart:$rootProject.ext.chartVersion"
 
 	implementation "com.facebook.fresco:fresco:$rootProject.ext.frescoVersion"
 	implementation "com.android.volley:volley:$rootProject.ext.volleyVersion"

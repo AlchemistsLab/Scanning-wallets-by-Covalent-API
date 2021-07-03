@@ -1,5 +1,6 @@
 package com.crazymoney.scanningwallet.walletDetailLayout;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -20,8 +21,18 @@ import com.crazymoney.scanningwallet.R;
 import com.crazymoney.scanningwallet.base.BaseActivity;
 import com.crazymoney.scanningwallet.database.table.WalletItem;
 import com.crazymoney.scanningwallet.widget.HamburgerListMenu;
+import com.github.mikephil.charting.animation.Easing;
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.PercentFormatter;
+import com.github.mikephil.charting.utils.ColorTemplate;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,6 +49,10 @@ public class WalletDetailLayoutFragment extends Fragment implements WalletDetail
 	protected ListView hamburgerDrawerList;
 	@BindView(R.id.toolbar)
 	protected Toolbar toolbar;
+	@BindView(R.id.fragment_wallet_detail_piechart)
+	protected PieChart portfolioPieChart;
+	@BindView(R.id.fragment_wallet_detail_balance)
+	protected TextView balanceTextView;
 	@BindView(R.id.fragment_wallet_detail_layout_item_list)
 	protected RecyclerView itemsRecyclerView;
 
@@ -96,6 +111,18 @@ public class WalletDetailLayoutFragment extends Fragment implements WalletDetail
 	}
 
 	@Override
+	public void displayPieChart(Map<WalletItem, Double> pieEntries) {
+		this.setupPieChart();
+		this.loadPieChartData(pieEntries);
+	}
+
+	@Override
+	public void displayBalance(String balance) {
+		String text = super.getString(R.string.balance) + balance;
+		this.balanceTextView.setText(text);
+	}
+
+	@Override
 	public void displayItems(List<WalletItem> items) {
 		if (super.getActivity() != null) {
 			super.getActivity().runOnUiThread(() -> {
@@ -142,5 +169,54 @@ public class WalletDetailLayoutFragment extends Fragment implements WalletDetail
 				this.hamburgerDrawerList
 		);
 		this.hamburgerListMenu.setUpHamburgerMenu();
+	}
+
+	private void setupPieChart() {
+		this.portfolioPieChart.setDrawHoleEnabled(true);
+		this.portfolioPieChart.setUsePercentValues(true);
+		this.portfolioPieChart.setEntryLabelTextSize(12);
+		this.portfolioPieChart.setEntryLabelColor(Color.BLACK);
+		this.portfolioPieChart.setCenterText("Portfolio");
+		this.portfolioPieChart.setCenterTextSize(18);
+		this.portfolioPieChart.getDescription().setEnabled(false);
+
+		Legend l = this.portfolioPieChart.getLegend();
+		l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
+		l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
+		l.setOrientation(Legend.LegendOrientation.VERTICAL);
+		l.setDrawInside(false);
+		l.setEnabled(true);
+	}
+
+	private void loadPieChartData(Map<WalletItem, Double> pieEntries) {
+		List<PieEntry> entries = new ArrayList<>();
+		for (Map.Entry<WalletItem, Double> entry : pieEntries.entrySet()) {
+			WalletItem walletItem = entry.getKey();
+			Double value = entry.getValue();
+			entries.add(new PieEntry(value.floatValue(), walletItem.getName()));
+		}
+
+		ArrayList<Integer> colors = new ArrayList<>();
+		for (int color : ColorTemplate.MATERIAL_COLORS) {
+			colors.add(color);
+		}
+
+		for (int color : ColorTemplate.VORDIPLOM_COLORS) {
+			colors.add(color);
+		}
+
+		PieDataSet dataSet = new PieDataSet(entries, "Portfolio");
+		dataSet.setColors(colors);
+
+		PieData data = new PieData(dataSet);
+		data.setDrawValues(true);
+		data.setValueFormatter(new PercentFormatter(this.portfolioPieChart));
+		data.setValueTextSize(12f);
+		data.setValueTextColor(Color.BLACK);
+
+		this.portfolioPieChart.setData(data);
+		this.portfolioPieChart.invalidate();
+
+		this.portfolioPieChart.animateY(1400, Easing.EaseInOutQuad);
 	}
 }

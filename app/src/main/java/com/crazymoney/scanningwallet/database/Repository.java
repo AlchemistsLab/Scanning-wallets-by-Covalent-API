@@ -62,6 +62,7 @@ public class Repository {
 
 	public void retrieveDataByCovalent(final Wallet wallet, final OnGettingWalletListener listener) {
 		String url = this.getUrlOfCovalentApi(wallet);
+		Log.e(TAG, "retrieveDataByCovalent: " + url);
 		StringRequest request = new CovalentStringRequest(
 				StringRequest.Method.GET,
 				url,
@@ -78,6 +79,7 @@ public class Repository {
 
 			@Override
 			protected VolleyError parseNetworkError(VolleyError volleyError) {
+				Log.e(TAG, "retrieveDataByCovalent", volleyError);
 				if (volleyError.networkResponse != null && volleyError.networkResponse.data != null) {
 					listener.onFailed(volleyError);
 				}

@@ -12,6 +12,7 @@
 	<string name="address">Address</string>
 	<string name="network">Network</string>
 	<string name="save">Save</string>
+	<string name="balance">Balance: </string>
 
 	<string name="btn_yes">Yes</string>
 	<string name="btn_no">No</string>

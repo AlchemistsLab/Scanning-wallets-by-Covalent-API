@@ -13,7 +13,9 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -69,6 +71,7 @@ public class WalletDetailLayoutPresenter implements WalletDetailLayoutContract.P
 
 	private void parseResponse(JSONObject result) {
 		try {
+			Log.e(TAG, "parseResponse: " + result);
 			if (result == null) {
 				this.view.showError(this.context.getString(R.string.error_network_exception_general));
 				return;
@@ -100,9 +103,11 @@ public class WalletDetailLayoutPresenter implements WalletDetailLayoutContract.P
 				if (item != null) {
 					walletItems.add(item);
 				}
-				this.view.setVisibilityOfItems(true);
-				this.view.displayItems(walletItems);
 			}
+			this.view.setVisibilityOfItems(true);
+			this.view.displayItems(walletItems);
+			this.displayTotalBalance(walletItems);
+			this.displayPieChart(walletItems);
 		} else {
 			this.view.setVisibilityOfItems(false);
 		}
@@ -115,11 +120,41 @@ public class WalletDetailLayoutPresenter implements WalletDetailLayoutContract.P
 			walletItem.setLogo(itemObject.getString("logo_url"));
 			walletItem.setBalance(itemObject.getLong("balance"));
 			walletItem.setQuote(itemObject.getDouble("quote"));
+			walletItem.setQuoteRate(itemObject.getDouble("quote_rate"));
 			walletItem.setContractDecimals(itemObject.getLong("contract_decimals"));
 			return walletItem;
 		} catch (Exception e) {
 			Log.e(TAG, "parseItem", e);
 			return null;
 		}
+	}
+
+	private void displayTotalBalance(List<WalletItem> walletItems) {
+		double balance = this.getTotalBalance(walletItems);
+		String balanceString = String.format("%,.4f", balance);
+		this.view.displayBalance(balanceString + " USD");
+	}
+
+	private void displayPieChart(List<WalletItem> walletItems) {
+		double balance = this.getTotalBalance(walletItems);
+		Map<WalletItem, Double> pieEntries = new HashMap<>();
+		if (walletItems != null && walletItems.size() > 0) {
+			for (WalletItem item : walletItems) {
+				if (item.getQuote() > 0) {
+					pieEntries.put(item, item.getQuote() / balance);
+				}
+			}
+		}
+		this.view.displayPieChart(pieEntries);
+	}
+
+	private double getTotalBalance(List<WalletItem> walletItems) {
+		double balance = 0;
+		if (walletItems != null && walletItems.size() > 0) {
+			for (WalletItem item : walletItems) {
+				balance += item.getQuote();
+			}
+		}
+		return balance;
 	}
 }

@@ -9,6 +9,7 @@ public class WalletItem implements Serializable, Comparable<WalletItem> {
 	private long balance;
 	private long contractDecimals;
 	private double quote;
+	private double quoteRate;
 	private String logo;
 
 	public String getName() {
@@ -43,6 +44,14 @@ public class WalletItem implements Serializable, Comparable<WalletItem> {
 		this.quote = quote;
 	}
 
+	public double getQuoteRate() {
+		return quoteRate;
+	}
+
+	public void setQuoteRate(double quoteRate) {
+		this.quoteRate = quoteRate;
+	}
+
 	public String getLogo() {
 		return logo;
 	}
@@ -69,7 +78,8 @@ public class WalletItem implements Serializable, Comparable<WalletItem> {
 				"name='" + name + '\'' +
 				", balance=" + balance +
 				", contractDecimals=" + contractDecimals +
-				", quote='" + quote + '\'' +
+				", quote=" + quote +
+				", quoteRate=" + quoteRate +
 				", logo='" + logo + '\'' +
 				'}';
 	}
