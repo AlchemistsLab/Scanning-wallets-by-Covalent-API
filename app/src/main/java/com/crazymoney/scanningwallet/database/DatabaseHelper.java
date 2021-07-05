@@ -43,7 +43,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 			TableUtils.createTable(connectionSource, Wallet.class);
 		} catch (SQLException e) {
 			Log.e(TAG, "onCreate", e);
-			throw new RuntimeException(e);
+			throw new IllegalStateException(e);
 		} catch (java.sql.SQLException e) {
 			Log.e(TAG, "onCreate", e);
 		}
