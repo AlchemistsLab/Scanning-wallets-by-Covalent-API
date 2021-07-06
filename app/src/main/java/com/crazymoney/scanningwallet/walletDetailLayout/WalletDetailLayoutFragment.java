@@ -112,12 +112,14 @@ public class WalletDetailLayoutFragment extends Fragment implements WalletDetail
 
 	@Override
 	public void displayPieChart(Map<WalletItem, Double> pieEntries) {
+		this.portfolioPieChart.setVisibility(View.VISIBLE);
 		this.setupPieChart();
 		this.loadPieChartData(pieEntries);
 	}
 
 	@Override
 	public void displayBalance(String balance) {
+		this.balanceTextView.setVisibility(View.VISIBLE);
 		String text = super.getString(R.string.balance) + balance;
 		this.balanceTextView.setText(text);
 	}
@@ -126,6 +128,7 @@ public class WalletDetailLayoutFragment extends Fragment implements WalletDetail
 	public void displayItems(List<WalletItem> items) {
 		if (super.getActivity() != null) {
 			super.getActivity().runOnUiThread(() -> {
+				this.itemsRecyclerView.setVisibility(View.VISIBLE);
 				this.itemsRecyclerView.setLayoutManager(new LinearLayoutManager(super.getActivity()));
 				this.adapter = new WalletItemsAdapter(items);
 				this.itemsRecyclerView.setAdapter(adapter);
@@ -153,6 +156,10 @@ public class WalletDetailLayoutFragment extends Fragment implements WalletDetail
 	public void showError(String message) {
 		BaseActivity baseActivity = (BaseActivity) super.getActivity();
 		if (baseActivity != null) {
+			baseActivity.runOnUiThread(() -> {
+				this.portfolioPieChart.setVisibility(View.GONE);
+				this.balanceTextView.setVisibility(View.GONE);
+			});
 			baseActivity.showErrorDialog(baseActivity.getString(R.string.app_name), message);
 		}
 	}

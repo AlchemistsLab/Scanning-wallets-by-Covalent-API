@@ -12,8 +12,11 @@ import com.crazymoney.scanningwallet.database.volley.CovalentStringRequest;
 import com.crazymoney.scanningwallet.database.volley.CovalentVolley;
 import com.crazymoney.scanningwallet.database.volley.OnGettingWalletListener;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -75,13 +78,22 @@ public class Repository {
 						listener.onFailed(e);
 					}
 				},
-				error -> listener.onFailed(error)) {
+				error -> {
+//					Log.e(TAG, "onFailed: " + error.getCause());
+//					listener.onFailed(error);
+				}) {
 
 			@Override
 			protected VolleyError parseNetworkError(VolleyError volleyError) {
-				Log.e(TAG, "retrieveDataByCovalent", volleyError);
-				if (volleyError.networkResponse != null && volleyError.networkResponse.data != null) {
-					listener.onFailed(volleyError);
+				try {
+					String responseBody = new String(volleyError.networkResponse.data, "utf-8");
+					JSONObject data = new JSONObject(responseBody);
+					String message = getErrorMessage(data);
+					Log.e(TAG, "parseNetworkError: " + message);
+					listener.onFailed(new Exception(message));
+				} catch (Exception e) {
+					listener.onFailed(new Exception());
+					Log.e(TAG, "parseNetworkError", e);
 				}
 				return volleyError;
 			}
@@ -93,5 +105,10 @@ public class Repository {
 		int chainId = wallet.getChainId();
 		String url = "https://api.covalenthq.com/v1/" + chainId + "/address/" + wallet.getAddress() + "/balances_v2/?&key=ckey_edc1619f340849c6939fba54856";
 		return url;
+	}
+
+	private String getErrorMessage(JSONObject data) throws Exception {
+		String message = data.getString("error_message");
+		return message;
 	}
 }

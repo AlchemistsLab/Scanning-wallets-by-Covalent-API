@@ -1,6 +1,7 @@
 package com.crazymoney.scanningwallet.walletDetailLayout;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.crazymoney.scanningwallet.R;
@@ -54,7 +55,12 @@ public class WalletDetailLayoutPresenter implements WalletDetailLayoutContract.P
 						@Override
 						public void onFailed(Exception e) {
 							view.hideLoadingDialog();
-							view.showError(context.getString(R.string.error_network_exception_general));
+							String message = e.getMessage();
+							Log.e(TAG, "start: " + message);
+							if (TextUtils.isEmpty(message)) {
+								message = context.getString(R.string.error_network_exception_general);
+							}
+							view.showError(message);
 						}
 					}
 			);
