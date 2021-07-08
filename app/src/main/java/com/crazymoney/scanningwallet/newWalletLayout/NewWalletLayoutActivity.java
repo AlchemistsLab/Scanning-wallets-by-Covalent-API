@@ -1,11 +1,15 @@
 package com.crazymoney.scanningwallet.newWalletLayout;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.crazymoney.scanningwallet.R;
 import com.crazymoney.scanningwallet.base.BaseActivity;
 import com.crazymoney.scanningwallet.injection.Injection;
 import com.crazymoney.scanningwallet.utils.ActivityUtils;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 import butterknife.ButterKnife;
 
@@ -22,6 +26,22 @@ public class NewWalletLayoutActivity extends BaseActivity {
 		ButterKnife.bind(this);
 		this.drawFragment();
 		this.createPresenter();
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+		if (result != null) {
+			if (result.getContents() == null) {
+				Log.e(TAG, "Cancelled");
+			} else {
+				String address = result.getContents();
+				Log.e(TAG, "Scanned: " + address);
+				this.presenter.setAddress(address);
+			}
+		} else {
+			super.onActivityResult(requestCode, resultCode, data);
+		}
 	}
 
 	private void drawFragment() {
