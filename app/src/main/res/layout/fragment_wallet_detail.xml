@@ -15,21 +15,38 @@
 
 		<com.github.mikephil.charting.charts.PieChart
 			android:id="@+id/fragment_wallet_detail_piechart"
-			android:layout_width="200dp"
+			android:layout_width="match_parent"
 			android:layout_height="200dp"
 			android:layout_gravity="center"
+			android:layout_marginHorizontal="20dp"
 			android:layout_marginTop="20dp"
 			android:layout_marginBottom="5dp" />
 
-		<TextView
-			android:id="@+id/fragment_wallet_detail_balance"
-			android:layout_width="wrap_content"
+		<LinearLayout
+			android:id="@+id/fragment_wallet_detail_balance_layout"
+			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_gravity="center"
 			android:layout_marginBottom="20dp"
-			android:text="@string/balance"
-			android:textColor="@color/gray700"
-			android:textSize="@dimen/text_size" />
+			android:gravity="center">
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center"
+				android:text="@string/balance"
+				android:textColor="@color/gray700"
+				android:textSize="@dimen/text_size" />
+
+			<TextView
+				android:id="@+id/fragment_wallet_detail_balance"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center"
+				android:text="0 USD"
+				android:textColor="@color/gray700"
+				android:textSize="@dimen/text_size"
+				android:textStyle="bold" />
+		</LinearLayout>
 
 		<androidx.recyclerview.widget.RecyclerView
 			android:id="@+id/fragment_wallet_detail_layout_item_list"

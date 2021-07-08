@@ -85,7 +85,13 @@ public class WalletItem implements Serializable, Comparable<WalletItem> {
 	}
 
 	@Override
-	public int compareTo(WalletItem o) {
-		return 0;
+	public int compareTo(WalletItem item) {
+		if (this.quote == item.getQuote()) {
+			return 0;
+		}
+		if (this.quote > item.getQuote()) {
+			return -1;
+		}
+		return 1;
 	}
 }
