@@ -14,6 +14,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -110,6 +111,7 @@ public class WalletDetailLayoutPresenter implements WalletDetailLayoutContract.P
 					walletItems.add(item);
 				}
 			}
+			Collections.sort(walletItems);
 			this.view.setVisibilityOfItems(true);
 			this.view.displayItems(walletItems);
 			this.displayTotalBalance(walletItems);
@@ -121,10 +123,14 @@ public class WalletDetailLayoutPresenter implements WalletDetailLayoutContract.P
 
 	private WalletItem parseItem(JSONObject itemObject) {
 		try {
+			long balance = itemObject.getLong("balance");
+			if (balance <= 0) {
+				return null;
+			}
 			WalletItem walletItem = new WalletItem();
 			walletItem.setName(itemObject.getString("contract_ticker_symbol"));
 			walletItem.setLogo(itemObject.getString("logo_url"));
-			walletItem.setBalance(itemObject.getLong("balance"));
+			walletItem.setBalance(balance);
 			walletItem.setQuote(itemObject.getDouble("quote"));
 			walletItem.setQuoteRate(itemObject.getDouble("quote_rate"));
 			walletItem.setContractDecimals(itemObject.getLong("contract_decimals"));
@@ -138,7 +144,7 @@ public class WalletDetailLayoutPresenter implements WalletDetailLayoutContract.P
 	private void displayTotalBalance(List<WalletItem> walletItems) {
 		double balance = this.getTotalBalance(walletItems);
 		String balanceString = String.format("%,.4f", balance);
-		this.view.displayBalance(balanceString + " USD");
+		this.view.displayBalance(" " + balanceString + " USD");
 	}
 
 	private void displayPieChart(List<WalletItem> walletItems) {

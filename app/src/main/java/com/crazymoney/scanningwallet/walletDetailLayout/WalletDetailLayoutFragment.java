@@ -6,6 +6,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -51,6 +52,8 @@ public class WalletDetailLayoutFragment extends Fragment implements WalletDetail
 	protected Toolbar toolbar;
 	@BindView(R.id.fragment_wallet_detail_piechart)
 	protected PieChart portfolioPieChart;
+	@BindView(R.id.fragment_wallet_detail_balance_layout)
+	protected LinearLayout balanceLayout;
 	@BindView(R.id.fragment_wallet_detail_balance)
 	protected TextView balanceTextView;
 	@BindView(R.id.fragment_wallet_detail_layout_item_list)
@@ -119,9 +122,8 @@ public class WalletDetailLayoutFragment extends Fragment implements WalletDetail
 
 	@Override
 	public void displayBalance(String balance) {
-		this.balanceTextView.setVisibility(View.VISIBLE);
-		String text = super.getString(R.string.balance) + balance;
-		this.balanceTextView.setText(text);
+		this.balanceLayout.setVisibility(View.VISIBLE);
+		this.balanceTextView.setText(balance);
 	}
 
 	@Override
@@ -158,7 +160,7 @@ public class WalletDetailLayoutFragment extends Fragment implements WalletDetail
 		if (baseActivity != null) {
 			baseActivity.runOnUiThread(() -> {
 				this.portfolioPieChart.setVisibility(View.GONE);
-				this.balanceTextView.setVisibility(View.GONE);
+				this.balanceLayout.setVisibility(View.GONE);
 			});
 			baseActivity.showErrorDialog(baseActivity.getString(R.string.app_name), message);
 		}
@@ -179,12 +181,10 @@ public class WalletDetailLayoutFragment extends Fragment implements WalletDetail
 	}
 
 	private void setupPieChart() {
-		this.portfolioPieChart.setDrawHoleEnabled(true);
+		this.portfolioPieChart.setDrawHoleEnabled(false);
 		this.portfolioPieChart.setUsePercentValues(true);
 		this.portfolioPieChart.setEntryLabelTextSize(12);
 		this.portfolioPieChart.setEntryLabelColor(Color.BLACK);
-		this.portfolioPieChart.setCenterText("Portfolio");
-		this.portfolioPieChart.setCenterTextSize(18);
 		this.portfolioPieChart.getDescription().setEnabled(false);
 
 		Legend l = this.portfolioPieChart.getLegend();
