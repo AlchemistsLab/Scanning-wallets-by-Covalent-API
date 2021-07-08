@@ -1,6 +1,7 @@
 package com.crazymoney.scanningwallet.newWalletLayout;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.crazymoney.scanningwallet.database.Repository;
 import com.crazymoney.scanningwallet.database.table.Wallet;
@@ -64,5 +65,12 @@ public class NewWalletLayoutPresenter implements NewWalletLayoutContract.Present
 		}
 
 		return -1;
+	}
+
+	@Override
+	public void setAddress(String address) {
+		if (!TextUtils.isEmpty(address)) {
+			this.view.setAddress(address);
+		}
 	}
 }

@@ -32,6 +32,7 @@ ext {
 	androidXLifecycleVersion = '2.2.0'
 	butterknifeVersion = '10.2.1'
 	chartVersion = 'v3.1.0'
+	cameraZXing = '4.2.0'
 
 	frescoVersion = '2.4.0'
 	volleyVersion = '1.2.0'

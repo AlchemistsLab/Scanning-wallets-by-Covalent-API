@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -25,6 +26,7 @@ import com.crazymoney.scanningwallet.R;
 import com.crazymoney.scanningwallet.walletsLayout.WalletsLayoutActivity;
 import com.crazymoney.scanningwallet.widget.HamburgerListMenu;
 import com.crazymoney.scanningwallet.widget.OnSingleClickListener;
+import com.google.zxing.integration.android.IntentIntegrator;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -45,6 +47,8 @@ public class NewWalletLayoutFragment extends Fragment implements NewWalletLayout
 	protected EditText nameEditText;
 	@BindView(R.id.new_wallet_address)
 	protected EditText addressEditText;
+	@BindView(R.id.new_wallet_camera_button)
+	protected ImageButton cameraImageButton;
 	@BindView(R.id.radio_eth)
 	protected RadioButton ethRadioButton;
 	@BindView(R.id.radio_bsc)
@@ -81,6 +85,7 @@ public class NewWalletLayoutFragment extends Fragment implements NewWalletLayout
 		this.drawTittle();
 		this.setUpHamburgerMenu();
 		this.setupTextListeners();
+		this.setupCameraListeners();
 		this.setSaveButtonOnClick();
 		return view;
 	}
@@ -105,6 +110,11 @@ public class NewWalletLayoutFragment extends Fragment implements NewWalletLayout
 	public void goBack() {
 		Intent intent = new Intent(super.getActivity(), WalletsLayoutActivity.class);
 		super.startActivity(intent);
+	}
+
+	@Override
+	public void setAddress(String address) {
+		this.addressEditText.setText(address);
 	}
 
 	@OnClick(R.id.hamburger_icon)
@@ -154,6 +164,15 @@ public class NewWalletLayoutFragment extends Fragment implements NewWalletLayout
 			@Override
 			public void afterTextChanged(Editable s) {
 				setEnableButton(TextUtils.isEmpty(s.toString().trim()));
+			}
+		});
+	}
+
+	private void setupCameraListeners() {
+		this.cameraImageButton.setOnClickListener(new OnSingleClickListener() {
+			@Override
+			public void onSingleClick(View v) {
+				new IntentIntegrator(getActivity()).initiateScan();
 			}
 		});
 	}
