@@ -15,6 +15,7 @@ public class WalletDataSource extends BaseDataSource {
 
 	private static WalletDataSource INSTANCE = null;
 	private Context context;
+	private DatabaseHelper helper;
 
 	public static WalletDataSource getInstance(Context context) {
 		if (INSTANCE == null) {
@@ -29,12 +30,12 @@ public class WalletDataSource extends BaseDataSource {
 
 	public WalletDataSource(Context context) {
 		this.context = context;
+		this.helper = DatabaseManager.getInstance(context).getHelper();
 	}
 
 	public boolean createWallet(Wallet wallet) {
 		try {
-			DatabaseHelper helper = DatabaseManager.getInstance(this.context).getHelper();
-			int affectedRows = helper.getWalletDao().create(wallet);
+			int affectedRows = this.helper.getWalletDao().create(wallet);
 			return getBooleanFromAffectedRows(affectedRows);
 		} catch (Exception e) {
 			Log.e(TAG, "createWallet", e);
@@ -44,8 +45,7 @@ public class WalletDataSource extends BaseDataSource {
 
 	public boolean deleteWallet(Wallet wallet) {
 		try {
-			DatabaseHelper helper = DatabaseManager.getInstance(this.context).getHelper();
-			int affectedRows = helper.getWalletDao().delete(wallet);
+			int affectedRows = this.helper.getWalletDao().delete(wallet);
 			return getBooleanFromAffectedRows(affectedRows);
 		} catch (Exception e) {
 			Log.e(TAG, "deleteWallet", e);
@@ -55,8 +55,7 @@ public class WalletDataSource extends BaseDataSource {
 
 	public List<Wallet> getWallets() {
 		try {
-			DatabaseHelper helper = DatabaseManager.getInstance(this.context).getHelper();
-			return helper.getWalletDao().queryForAll();
+			return this.helper.getWalletDao().queryForAll();
 		} catch (Exception e) {
 			Log.e(TAG, "getWallets", e);
 			return null;
@@ -65,14 +64,13 @@ public class WalletDataSource extends BaseDataSource {
 
 	public Wallet getWallet(long id) {
 		try {
-			DatabaseHelper helper = DatabaseManager.getInstance(this.context).getHelper();
-			PreparedQuery<Wallet> preparedQuery = helper.
+			PreparedQuery<Wallet> preparedQuery = this.helper.
 					getWalletDao().
 					queryBuilder().
 					where().
 					eq(Wallet.Fields.ID, id).
 					prepare();
-			Wallet wallet = helper.getWalletDao().queryForFirst(preparedQuery);
+			Wallet wallet = this.helper.getWalletDao().queryForFirst(preparedQuery);
 			return wallet;
 		} catch (Exception e) {
 			Log.e(TAG, "getWallets", e);
