@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "453783068129",
+    "project_id": "scanningwalletbycovalentapi",
+    "storage_bucket": "scanningwalletbycovalentapi.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:453783068129:android:b4291648c970ee921c46a0",
+        "android_client_info": {
+          "package_name": "com.crazymoney.scanningwallet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "453783068129-i56r2dcv91apr2b5c7c09bdpkpubjee0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.crazymoney.scanningwallet",
+            "certificate_hash": "62a8b3a71eeb54b5acf1b78bc54e0cc03db036e3"
+          }
+        },
+        {
+          "client_id": "453783068129-qhjandp13uuhg4b55bqkqdopd66p4jr4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9XVx9FFVUsMExZUq81kpvQrZ60DMFlks"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "453783068129-qhjandp13uuhg4b55bqkqdopd66p4jr4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

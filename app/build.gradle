@@ -1,5 +1,6 @@
 plugins {
 	id 'com.android.application'
+	id 'com.google.gms.google-services'
 }
 
 android {
@@ -49,6 +50,9 @@ dependencies {
 	annotationProcessor "androidx.lifecycle:lifecycle-compiler:$rootProject.ext.androidXLifecycleVersion"
 	implementation "com.github.PhilJay:MPAndroidChart:$rootProject.ext.chartVersion"
 	implementation "com.journeyapps:zxing-android-embedded:$rootProject.ext.cameraZXing"
+
+	implementation platform('com.google.firebase:firebase-bom:28.2.1')
+	implementation 'com.google.firebase:firebase-analytics'
 
 	implementation "com.facebook.fresco:fresco:$rootProject.ext.frescoVersion"
 	implementation "com.android.volley:volley:$rootProject.ext.volleyVersion"
