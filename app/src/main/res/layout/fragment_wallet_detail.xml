@@ -48,6 +48,16 @@
 				android:textStyle="bold" />
 		</LinearLayout>
 
+		<EditText
+			android:id="@+id/fragment_wallet_detail_layout_item_search"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_margin="15dp"
+			android:drawableLeft="@android:drawable/ic_menu_search"
+			android:hint="@string/name_of_token"
+			android:padding="16dp"
+			android:singleLine="true" />
+
 		<androidx.recyclerview.widget.RecyclerView
 			android:id="@+id/fragment_wallet_detail_layout_item_list"
 			android:layout_width="match_parent"
