@@ -28,6 +28,7 @@ public class WalletDetailLayoutPresenter implements WalletDetailLayoutContract.P
 	private Context context;
 	private Repository repository;
 	private Wallet wallet;
+	private List<WalletItem> walletItems;
 
 	public WalletDetailLayoutPresenter(Context context,
 									   WalletDetailLayoutContract.View view,
@@ -76,6 +77,19 @@ public class WalletDetailLayoutPresenter implements WalletDetailLayoutContract.P
 		}
 	}
 
+	@Override
+	public void searchTokens(String text) {
+		if (this.walletItems != null && this.walletItems.size() > 0) {
+			List<WalletItem> result = new ArrayList<>();
+			for (WalletItem item : this.walletItems) {
+				if (item.getName().toUpperCase().contains(text)) {
+					result.add(item);
+				}
+			}
+			this.view.displayItems(result);
+		}
+	}
+
 	private void parseResponse(JSONObject result) {
 		try {
 			Log.e(TAG, "parseResponse: " + result);
@@ -104,18 +118,18 @@ public class WalletDetailLayoutPresenter implements WalletDetailLayoutContract.P
 		JSONArray itemsJsonArray = data.getJSONArray("items");
 		if (itemsJsonArray != null && itemsJsonArray.length() > 0) {
 			final int LENGTH = itemsJsonArray.length();
-			List<WalletItem> walletItems = new ArrayList<>();
+			this.walletItems = new ArrayList<>();
 			for (int i = 0; i < LENGTH; i++) {
 				WalletItem item = this.parseItem(itemsJsonArray.getJSONObject(i));
 				if (item != null) {
-					walletItems.add(item);
+					this.walletItems.add(item);
 				}
 			}
-			Collections.sort(walletItems);
+			Collections.sort(this.walletItems);
 			this.view.setVisibilityOfItems(true);
-			this.view.displayItems(walletItems);
-			this.displayTotalBalance(walletItems);
-			this.displayPieChart(walletItems);
+			this.view.displayItems(this.walletItems);
+			this.displayTotalBalance(this.walletItems);
+			this.displayPieChart(this.walletItems);
 		} else {
 			this.view.setVisibilityOfItems(false);
 		}

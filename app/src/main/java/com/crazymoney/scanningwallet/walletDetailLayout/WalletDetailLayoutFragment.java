@@ -2,10 +2,14 @@ package com.crazymoney.scanningwallet.walletDetailLayout;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -56,6 +60,8 @@ public class WalletDetailLayoutFragment extends Fragment implements WalletDetail
 	protected LinearLayout balanceLayout;
 	@BindView(R.id.fragment_wallet_detail_balance)
 	protected TextView balanceTextView;
+	@BindView(R.id.fragment_wallet_detail_layout_item_search)
+	protected EditText searchEditText;
 	@BindView(R.id.fragment_wallet_detail_layout_item_list)
 	protected RecyclerView itemsRecyclerView;
 
@@ -79,6 +85,7 @@ public class WalletDetailLayoutFragment extends Fragment implements WalletDetail
 		);
 		ButterKnife.bind(this, view);
 		this.setUpHamburgerMenu();
+		this.setupSearchListener();
 		return view;
 	}
 
@@ -178,6 +185,23 @@ public class WalletDetailLayoutFragment extends Fragment implements WalletDetail
 				this.hamburgerDrawerList
 		);
 		this.hamburgerListMenu.setUpHamburgerMenu();
+	}
+
+	private void setupSearchListener() {
+		this.searchEditText.addTextChangedListener(new TextWatcher() {
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+			}
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+			}
+
+			@Override
+			public void afterTextChanged(Editable s) {
+				presenter.searchTokens(s.toString().trim().toUpperCase());
+			}
+		});
 	}
 
 	private void setupPieChart() {

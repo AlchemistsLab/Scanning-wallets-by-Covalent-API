@@ -13,6 +13,7 @@
 	<string name="network">Network</string>
 	<string name="save">Save</string>
 	<string name="balance">Balance:</string>
+	<string name="name_of_token">Name of token</string>
 
 	<string name="btn_yes">Yes</string>
 	<string name="btn_no">No</string>
