@@ -13,7 +13,7 @@ public class CovalentVolley {
 
 	private static WeakReference<CovalentVolley> INSTANCE;
 
-	private RequestQueue requestQueue;
+	private final RequestQueue requestQueue;
 
 	public static CovalentVolley getInstance(Context context) {
 		if (INSTANCE == null || INSTANCE.get() == null) {

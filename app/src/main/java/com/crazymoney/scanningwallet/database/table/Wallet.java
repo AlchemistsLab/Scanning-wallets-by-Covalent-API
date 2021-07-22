@@ -7,7 +7,6 @@ import java.io.Serializable;
 
 @DatabaseTable(tableName = "wallet")
 public class Wallet implements Serializable, Comparable<Wallet> {
-	private static final String TAG = Wallet.class.getSimpleName();
 
 	public static class Fields {
 		public static final String ID = "id";
@@ -55,18 +54,12 @@ public class Wallet implements Serializable, Comparable<Wallet> {
 		this.address = address;
 	}
 
-	public int getNetwork() {
-		return network;
-	}
-
 	public void setNetwork(int network) {
 		this.network = network;
 	}
 
 	public String getNetworkName() {
 		switch (this.network) {
-			case 0:
-				return "Ethereum";
 			case 1:
 				return "Binance Smart Chain";
 			case 2:
@@ -84,8 +77,6 @@ public class Wallet implements Serializable, Comparable<Wallet> {
 
 	public int getChainId() {
 		switch (this.network) {
-			case 0:
-				return 1;
 			case 1:
 				return 56;
 			case 2:
