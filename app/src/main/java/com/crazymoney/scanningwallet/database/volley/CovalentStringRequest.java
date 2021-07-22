@@ -9,7 +9,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CovalentStringRequest extends StringRequest {
-	private static final String TAG = CovalentStringRequest.class.getSimpleName();
 
 	public CovalentStringRequest(int method,
 								 String url,

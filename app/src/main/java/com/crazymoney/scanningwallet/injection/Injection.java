@@ -18,7 +18,6 @@ public class Injection {
 	public static Repository provideRepository(@NonNull Context context) {
 		WalletDataSource walletDataSource = WalletDataSource.getInstance(context);
 		CovalentVolley covalentVolley = CovalentVolley.getInstance(context);
-		Repository repository = Repository.getInstance(walletDataSource, covalentVolley);
-		return repository;
+		return Repository.getInstance(walletDataSource, covalentVolley);
 	}
 }

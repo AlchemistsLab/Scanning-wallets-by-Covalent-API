@@ -3,7 +3,6 @@ package com.crazymoney.scanningwallet.database.table;
 import java.io.Serializable;
 
 public class WalletItem implements Serializable, Comparable<WalletItem> {
-	private static final String TAG = WalletItem.class.getSimpleName();
 
 	private String name;
 	private long balance;
@@ -20,16 +19,8 @@ public class WalletItem implements Serializable, Comparable<WalletItem> {
 		this.name = name;
 	}
 
-	public long getBalance() {
-		return balance;
-	}
-
 	public void setBalance(long balance) {
 		this.balance = balance;
-	}
-
-	public long getContractDecimals() {
-		return contractDecimals;
 	}
 
 	public void setContractDecimals(long contractDecimals) {
@@ -42,10 +33,6 @@ public class WalletItem implements Serializable, Comparable<WalletItem> {
 
 	public void setQuote(double quote) {
 		this.quote = quote;
-	}
-
-	public double getQuoteRate() {
-		return quoteRate;
 	}
 
 	public void setQuoteRate(double quoteRate) {
@@ -86,12 +73,6 @@ public class WalletItem implements Serializable, Comparable<WalletItem> {
 
 	@Override
 	public int compareTo(WalletItem item) {
-		if (this.quote == item.getQuote()) {
-			return 0;
-		}
-		if (this.quote > item.getQuote()) {
-			return -1;
-		}
-		return 1;
+		return Double.compare(item.getQuote(), this.quote);
 	}
 }

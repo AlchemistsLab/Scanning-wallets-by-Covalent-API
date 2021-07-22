@@ -37,10 +37,6 @@ public class Repository {
 		return INSTANCE;
 	}
 
-	public static void destroyInstance() {
-		INSTANCE = null;
-	}
-
 	private Repository(@NonNull WalletDataSource walletDataSource,
 					   @NonNull CovalentVolley covalentVolley) {
 		this.walletDataSource = checkNotNull(walletDataSource);
@@ -103,12 +99,10 @@ public class Repository {
 
 	private String getUrlOfCovalentApi(Wallet wallet) {
 		int chainId = wallet.getChainId();
-		String url = "https://api.covalenthq.com/v1/" + chainId + "/address/" + wallet.getAddress() + "/balances_v2/?&key=ckey_edc1619f340849c6939fba54856";
-		return url;
+		return "https://api.covalenthq.com/v1/" + chainId + "/address/" + wallet.getAddress() + "/balances_v2/?&key=ckey_edc1619f340849c6939fba54856";
 	}
 
 	private String getErrorMessage(JSONObject data) throws Exception {
-		String message = data.getString("error_message");
-		return message;
+		return data.getString("error_message");
 	}
 }

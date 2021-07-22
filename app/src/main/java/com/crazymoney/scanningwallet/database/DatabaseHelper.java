@@ -22,14 +22,6 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 		super(context, "ScanningWalletByCQT", null, 1);
 	}
 
-	public void clearDatabase() {
-		try {
-			TableUtils.clearTable(this.connectionSource, Wallet.class);
-		} catch (Exception e) {
-			Log.e(TAG, "clearDatabase", e);
-		}
-	}
-
 	@Override
 	public void close() {
 		super.close();

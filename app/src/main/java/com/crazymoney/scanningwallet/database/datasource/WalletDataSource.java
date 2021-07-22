@@ -10,12 +10,11 @@ import com.j256.ormlite.stmt.PreparedQuery;
 
 import java.util.List;
 
-public class WalletDataSource extends BaseDataSource {
+public class WalletDataSource {
 	public static final String TAG = WalletDataSource.class.getSimpleName();
 
 	private static WalletDataSource INSTANCE = null;
-	private Context context;
-	private DatabaseHelper helper;
+	private final DatabaseHelper helper;
 
 	public static WalletDataSource getInstance(Context context) {
 		if (INSTANCE == null) {
@@ -24,32 +23,23 @@ public class WalletDataSource extends BaseDataSource {
 		return INSTANCE;
 	}
 
-	public static void destroyInstance() {
-		INSTANCE = null;
-	}
-
 	public WalletDataSource(Context context) {
-		this.context = context;
 		this.helper = DatabaseManager.getInstance(context).getHelper();
 	}
 
-	public boolean createWallet(Wallet wallet) {
+	public void createWallet(Wallet wallet) {
 		try {
-			int affectedRows = this.helper.getWalletDao().create(wallet);
-			return getBooleanFromAffectedRows(affectedRows);
+			this.helper.getWalletDao().create(wallet);
 		} catch (Exception e) {
 			Log.e(TAG, "createWallet", e);
-			return false;
 		}
 	}
 
-	public boolean deleteWallet(Wallet wallet) {
+	public void deleteWallet(Wallet wallet) {
 		try {
-			int affectedRows = this.helper.getWalletDao().delete(wallet);
-			return getBooleanFromAffectedRows(affectedRows);
+			this.helper.getWalletDao().delete(wallet);
 		} catch (Exception e) {
 			Log.e(TAG, "deleteWallet", e);
-			return false;
 		}
 	}
 
@@ -70,8 +60,7 @@ public class WalletDataSource extends BaseDataSource {
 					where().
 					eq(Wallet.Fields.ID, id).
 					prepare();
-			Wallet wallet = this.helper.getWalletDao().queryForFirst(preparedQuery);
-			return wallet;
+			return this.helper.getWalletDao().queryForFirst(preparedQuery);
 		} catch (Exception e) {
 			Log.e(TAG, "getWallets", e);
 			return null;
