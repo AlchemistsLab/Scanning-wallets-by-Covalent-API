@@ -29,10 +29,12 @@ public class PopupUtil {
 				if ("mPopup".equals(field.getName())) {
 					field.setAccessible(true);
 					Object menuPopupHelper = field.get(popupMenu);
-					Class<?> classPopupHelper = Class.forName(menuPopupHelper.getClass().getName());
-					Method setForceIcons = classPopupHelper.getMethod("setForceShowIcon", boolean.class);
-					setForceIcons.invoke(menuPopupHelper, true);
-					break;
+					if(menuPopupHelper != null) {
+						Class<?> classPopupHelper = Class.forName(menuPopupHelper.getClass().getName());
+						Method setForceIcons = classPopupHelper.getMethod("setForceShowIcon", boolean.class);
+						setForceIcons.invoke(menuPopupHelper, true);
+						break;
+					}
 				}
 			}
 		} catch (Throwable e) {

@@ -20,16 +20,8 @@ public class WalletItem implements Serializable, Comparable<WalletItem> {
 		this.name = name;
 	}
 
-	public long getBalance() {
-		return balance;
-	}
-
 	public void setBalance(long balance) {
 		this.balance = balance;
-	}
-
-	public long getContractDecimals() {
-		return contractDecimals;
 	}
 
 	public void setContractDecimals(long contractDecimals) {
@@ -42,10 +34,6 @@ public class WalletItem implements Serializable, Comparable<WalletItem> {
 
 	public void setQuote(double quote) {
 		this.quote = quote;
-	}
-
-	public double getQuoteRate() {
-		return quoteRate;
 	}
 
 	public void setQuoteRate(double quoteRate) {

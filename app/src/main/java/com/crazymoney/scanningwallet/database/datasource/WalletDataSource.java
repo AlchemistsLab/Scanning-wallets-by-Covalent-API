@@ -14,7 +14,7 @@ public class WalletDataSource extends BaseDataSource {
 	public static final String TAG = WalletDataSource.class.getSimpleName();
 
 	private static WalletDataSource INSTANCE = null;
-	private Context context;
+	private final Context context;
 
 	public static WalletDataSource getInstance(Context context) {
 		if (INSTANCE == null) {

@@ -7,7 +7,6 @@ import com.crazymoney.scanningwallet.base.BaseActivity;
 import com.crazymoney.scanningwallet.walletsLayout.WalletsLayoutActivity;
 
 public class MainLayoutActivity extends BaseActivity {
-	private static final String TAG = MainLayoutActivity.class.getSimpleName();
 
 	@Override
 	public void onCreate(Bundle bundle) {

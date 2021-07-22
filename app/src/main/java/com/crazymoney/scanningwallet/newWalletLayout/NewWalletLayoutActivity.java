@@ -13,7 +13,6 @@ public class NewWalletLayoutActivity extends BaseActivity {
 	private static final String TAG = NewWalletLayoutActivity.class.getSimpleName();
 
 	private NewWalletLayoutFragment fragment;
-	private NewWalletLayoutPresenter presenter;
 
 	@Override
 	public void onCreate(Bundle bundle) {
@@ -34,7 +33,7 @@ public class NewWalletLayoutActivity extends BaseActivity {
 	}
 
 	private void createPresenter() {
-		this.presenter = new NewWalletLayoutPresenter(
+		new NewWalletLayoutPresenter(
 				Injection.provideContext(super.getApplicationContext()),
 				this.fragment,
 				Injection.provideRepository(super.getApplicationContext())

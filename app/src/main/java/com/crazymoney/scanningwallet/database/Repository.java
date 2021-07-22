@@ -34,10 +34,6 @@ public class Repository {
 		return INSTANCE;
 	}
 
-	public static void destroyInstance() {
-		INSTANCE = null;
-	}
-
 	private Repository(@NonNull WalletDataSource walletDataSource,
 					   @NonNull CovalentVolley covalentVolley) {
 		this.walletDataSource = checkNotNull(walletDataSource);
@@ -45,11 +41,15 @@ public class Repository {
 	}
 
 	public void deleteWallet(Wallet wallet) {
-		this.walletDataSource.deleteWallet(wallet);
+		if(!this.walletDataSource.deleteWallet(wallet)){
+			throw new RuntimeException("Wallet wasn't deleted");
+		}
 	}
 
 	public void createWallet(Wallet wallet) {
-		this.walletDataSource.createWallet(wallet);
+		if (!this.walletDataSource.createWallet(wallet)) {
+			throw new RuntimeException("Wallet wasn't created");
+		}
 	}
 
 	public List<Wallet> getWallets() {
@@ -75,7 +75,7 @@ public class Repository {
 						listener.onFailed(e);
 					}
 				},
-				error -> listener.onFailed(error)) {
+				listener::onFailed) {
 
 			@Override
 			protected VolleyError parseNetworkError(VolleyError volleyError) {

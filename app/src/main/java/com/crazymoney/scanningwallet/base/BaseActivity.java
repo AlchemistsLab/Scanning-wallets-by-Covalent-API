@@ -57,21 +57,6 @@ public class BaseActivity extends AppCompatActivity {
 	}
 
 	public void showConfirmDialog(final String title, final String message,
-								  final DialogInterface.OnClickListener yesOnClickListener) {
-		showConfirmDialog(title, message, yesOnClickListener, null, getString(R.string.btn_yes),
-				getString(R.string.btn_no), true);
-	}
-
-	public void showConfirmDialog(final String title, final String message,
-								  final DialogInterface.OnClickListener yesOnClickListener,
-								  final DialogInterface.OnClickListener noOnClickListener,
-								  final boolean isCancelable) {
-		showConfirmDialog(
-				title, message, yesOnClickListener, noOnClickListener, getString(R.string.btn_yes),
-				getString(R.string.btn_no), isCancelable);
-	}
-
-	public void showConfirmDialog(final String title, final String message,
 								  DialogInterface.OnClickListener yesOnClickListener,
 								  DialogInterface.OnClickListener noOnClickListener,
 								  final String yesTitle, final String noTitle,
@@ -100,32 +85,8 @@ public class BaseActivity extends AppCompatActivity {
 		}
 	}
 
-	public void showErrorDialog(int stringResourceId) {
-		showErrorDialog(getString(R.string.app_name), getString(stringResourceId));
-	}
-
-	public void showErrorDialog(int titleResourceId, int stringResourceId) {
-		showErrorDialog(getString(titleResourceId), getString(stringResourceId));
-	}
-
-	public void showErrorDialog(final Throwable t) {
-		String message = t.getLocalizedMessage();
-		if (message == null || message.startsWith("java.net")) {
-			message = super.getString(R.string.error_network_exception_general);
-		}
-		this.showErrorDialog(super.getString(R.string.app_name), message);
-	}
-
 	public void showErrorDialog(final String title, final String error) {
 		mHandler.post(() -> showErrorDialogOnScreen(title, error, getString(R.string.dismiss), false));
-	}
-
-	public void showErrorDialog(final String title, final String error, final boolean isCancelable) {
-		mHandler.post(() -> showErrorDialogOnScreen(title, error, getString(R.string.dismiss), isCancelable));
-	}
-
-	public void showErrorDialog(final String title, final String error, final String button, final boolean isCancelable) {
-		mHandler.post(() -> showErrorDialogOnScreen(title, error, button, isCancelable));
 	}
 
 	private void showErrorDialogOnScreen(String title, String error, String closeButtonTitle, boolean isCancelable) {
@@ -152,8 +113,7 @@ public class BaseActivity extends AppCompatActivity {
 			mHandler.post(() -> {
 				try {
 					mLoadingDialog = new LoadingDialog(activity);
-					if (mLoadingDialog != null && !mLoadingDialog.isShowing()
-							&& !activity.isFinishing() && !isFinishing()) {
+					if (!mLoadingDialog.isShowing() && !activity.isFinishing() && !isFinishing()) {
 						mLoadingDialog.show();
 					}
 				} catch (Exception e) {
