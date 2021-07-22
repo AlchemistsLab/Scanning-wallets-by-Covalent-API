@@ -2,10 +2,15 @@ package com.crazymoney.scanningwallet.walletDetailLayout;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -51,8 +56,12 @@ public class WalletDetailLayoutFragment extends Fragment implements WalletDetail
 	protected Toolbar toolbar;
 	@BindView(R.id.fragment_wallet_detail_piechart)
 	protected PieChart portfolioPieChart;
+	@BindView(R.id.fragment_wallet_detail_balance_layout)
+	protected LinearLayout balanceLayout;
 	@BindView(R.id.fragment_wallet_detail_balance)
 	protected TextView balanceTextView;
+	@BindView(R.id.fragment_wallet_detail_layout_item_search)
+	protected EditText searchEditText;
 	@BindView(R.id.fragment_wallet_detail_layout_item_list)
 	protected RecyclerView itemsRecyclerView;
 
@@ -76,6 +85,7 @@ public class WalletDetailLayoutFragment extends Fragment implements WalletDetail
 		);
 		ButterKnife.bind(this, view);
 		this.setUpHamburgerMenu();
+		this.setupSearchListener();
 		return view;
 	}
 
@@ -112,20 +122,22 @@ public class WalletDetailLayoutFragment extends Fragment implements WalletDetail
 
 	@Override
 	public void displayPieChart(Map<WalletItem, Double> pieEntries) {
+		this.portfolioPieChart.setVisibility(View.VISIBLE);
 		this.setupPieChart();
 		this.loadPieChartData(pieEntries);
 	}
 
 	@Override
 	public void displayBalance(String balance) {
-		String text = super.getString(R.string.balance) + balance;
-		this.balanceTextView.setText(text);
+		this.balanceLayout.setVisibility(View.VISIBLE);
+		this.balanceTextView.setText(balance);
 	}
 
 	@Override
 	public void displayItems(List<WalletItem> items) {
 		if (super.getActivity() != null) {
 			super.getActivity().runOnUiThread(() -> {
+				this.itemsRecyclerView.setVisibility(View.VISIBLE);
 				this.itemsRecyclerView.setLayoutManager(new LinearLayoutManager(super.getActivity()));
 				this.adapter = new WalletItemsAdapter(items);
 				this.itemsRecyclerView.setAdapter(adapter);
@@ -153,6 +165,10 @@ public class WalletDetailLayoutFragment extends Fragment implements WalletDetail
 	public void showError(String message) {
 		BaseActivity baseActivity = (BaseActivity) super.getActivity();
 		if (baseActivity != null) {
+			baseActivity.runOnUiThread(() -> {
+				this.portfolioPieChart.setVisibility(View.GONE);
+				this.balanceLayout.setVisibility(View.GONE);
+			});
 			baseActivity.showErrorDialog(baseActivity.getString(R.string.app_name), message);
 		}
 	}
@@ -171,13 +187,28 @@ public class WalletDetailLayoutFragment extends Fragment implements WalletDetail
 		this.hamburgerListMenu.setUpHamburgerMenu();
 	}
 
+	private void setupSearchListener() {
+		this.searchEditText.addTextChangedListener(new TextWatcher() {
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+			}
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+			}
+
+			@Override
+			public void afterTextChanged(Editable s) {
+				presenter.searchTokens(s.toString().trim().toUpperCase());
+			}
+		});
+	}
+
 	private void setupPieChart() {
-		this.portfolioPieChart.setDrawHoleEnabled(true);
+		this.portfolioPieChart.setDrawHoleEnabled(false);
 		this.portfolioPieChart.setUsePercentValues(true);
 		this.portfolioPieChart.setEntryLabelTextSize(12);
 		this.portfolioPieChart.setEntryLabelColor(Color.BLACK);
-		this.portfolioPieChart.setCenterText("Portfolio");
-		this.portfolioPieChart.setCenterTextSize(18);
 		this.portfolioPieChart.getDescription().setEnabled(false);
 
 		Legend l = this.portfolioPieChart.getLegend();

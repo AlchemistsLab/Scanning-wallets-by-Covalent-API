@@ -29,5 +29,7 @@ public interface WalletDetailLayoutContract {
 
 	interface Presenter extends BasePresenter {
 		void setWalletId(long walletId);
+
+		void searchTokens(String text);
 	}
 }

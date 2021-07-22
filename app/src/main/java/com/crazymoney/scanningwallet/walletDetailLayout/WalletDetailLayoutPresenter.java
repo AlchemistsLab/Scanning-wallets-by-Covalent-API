@@ -1,6 +1,7 @@
 package com.crazymoney.scanningwallet.walletDetailLayout;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.crazymoney.scanningwallet.R;
@@ -13,6 +14,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +28,7 @@ public class WalletDetailLayoutPresenter implements WalletDetailLayoutContract.P
 	private Context context;
 	private Repository repository;
 	private Wallet wallet;
+	private List<WalletItem> walletItems;
 
 	public WalletDetailLayoutPresenter(Context context,
 									   WalletDetailLayoutContract.View view,
@@ -54,7 +57,12 @@ public class WalletDetailLayoutPresenter implements WalletDetailLayoutContract.P
 						@Override
 						public void onFailed(Exception e) {
 							view.hideLoadingDialog();
-							view.showError(context.getString(R.string.error_network_exception_general));
+							String message = e.getMessage();
+							Log.e(TAG, "start: " + message);
+							if (TextUtils.isEmpty(message)) {
+								message = context.getString(R.string.error_network_exception_general);
+							}
+							view.showError(message);
 						}
 					}
 			);
@@ -66,6 +74,19 @@ public class WalletDetailLayoutPresenter implements WalletDetailLayoutContract.P
 		Log.e(TAG, "setWalletId");
 		if (walletId > 0) {
 			this.wallet = this.repository.getWallet(walletId);
+		}
+	}
+
+	@Override
+	public void searchTokens(String text) {
+		if (this.walletItems != null && this.walletItems.size() > 0) {
+			List<WalletItem> result = new ArrayList<>();
+			for (WalletItem item : this.walletItems) {
+				if (item.getName().toUpperCase().contains(text)) {
+					result.add(item);
+				}
+			}
+			this.view.displayItems(result);
 		}
 	}
 
@@ -97,17 +118,18 @@ public class WalletDetailLayoutPresenter implements WalletDetailLayoutContract.P
 		JSONArray itemsJsonArray = data.getJSONArray("items");
 		if (itemsJsonArray != null && itemsJsonArray.length() > 0) {
 			final int LENGTH = itemsJsonArray.length();
-			List<WalletItem> walletItems = new ArrayList<>();
+			this.walletItems = new ArrayList<>();
 			for (int i = 0; i < LENGTH; i++) {
 				WalletItem item = this.parseItem(itemsJsonArray.getJSONObject(i));
 				if (item != null) {
-					walletItems.add(item);
+					this.walletItems.add(item);
 				}
 			}
+			Collections.sort(this.walletItems);
 			this.view.setVisibilityOfItems(true);
-			this.view.displayItems(walletItems);
-			this.displayTotalBalance(walletItems);
-			this.displayPieChart(walletItems);
+			this.view.displayItems(this.walletItems);
+			this.displayTotalBalance(this.walletItems);
+			this.displayPieChart(this.walletItems);
 		} else {
 			this.view.setVisibilityOfItems(false);
 		}
@@ -115,10 +137,14 @@ public class WalletDetailLayoutPresenter implements WalletDetailLayoutContract.P
 
 	private WalletItem parseItem(JSONObject itemObject) {
 		try {
+			long balance = itemObject.getLong("balance");
+			if (balance <= 0) {
+				return null;
+			}
 			WalletItem walletItem = new WalletItem();
 			walletItem.setName(itemObject.getString("contract_ticker_symbol"));
 			walletItem.setLogo(itemObject.getString("logo_url"));
-			walletItem.setBalance(itemObject.getLong("balance"));
+			walletItem.setBalance(balance);
 			walletItem.setQuote(itemObject.getDouble("quote"));
 			walletItem.setQuoteRate(itemObject.getDouble("quote_rate"));
 			walletItem.setContractDecimals(itemObject.getLong("contract_decimals"));
@@ -132,7 +158,7 @@ public class WalletDetailLayoutPresenter implements WalletDetailLayoutContract.P
 	private void displayTotalBalance(List<WalletItem> walletItems) {
 		double balance = this.getTotalBalance(walletItems);
 		String balanceString = String.format("%,.4f", balance);
-		this.view.displayBalance(balanceString + " USD");
+		this.view.displayBalance(" " + balanceString + " USD");
 	}
 
 	private void displayPieChart(List<WalletItem> walletItems) {

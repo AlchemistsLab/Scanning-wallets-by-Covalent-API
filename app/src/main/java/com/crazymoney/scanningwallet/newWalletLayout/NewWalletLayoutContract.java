@@ -6,6 +6,8 @@ import com.crazymoney.scanningwallet.base.BaseView;
 public interface NewWalletLayoutContract {
 	interface View extends BaseView<Presenter> {
 		void goBack();
+
+		void setAddress(String address);
 	}
 
 	interface Presenter extends BasePresenter {
@@ -17,5 +19,7 @@ public interface NewWalletLayoutContract {
 					   boolean isAvalanche,
 					   boolean isMatic,
 					   boolean isMoonbeam);
+
+		void setAddress(String address);
 	}
 }
